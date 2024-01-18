@@ -1,23 +1,29 @@
-FROM node:16-alpine AS dependencies
-RUN apk add --no-cache libc6-compat
-WORKDIR /home/app
+# STAGE 1: install
+FROM node:18.17-alpine AS base
+WORKDIR /base
+# Install dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm i
-FROM node:16-alpine AS builder
-WORKDIR /home/app
-COPY --from=dependencies /home/app/node_modules ./node_modules
+RUN npm ci
+# Copy project 
 COPY . .
-ENV NEXT_TELEMETRY_DISABLED 1
-ARG NODE_ENV
-ENV NODE_ENV=”${NODE_ENV}”
+
+# STAGE 2: build
+FROM base AS build
+ENV NODE_ENV=production
+WORKDIR /build
+COPY --from=base /base ./
 RUN npm run build
-FROM mhart/alpine-node:slim-14 AS runner
-WORKDIR /home/app
-ENV NEXT_TELEMETRY_DISABLED 1
-COPY --from=builder /home/app/.next/standalone ./standalone
-COPY --from=builder /home/app/public /home/app/standalone/public
-COPY --from=builder /home/app/.next/static /home/app/standalone/.next/static
-EXPOSE 3000
-ENV PORT 3000
-CMD [“node”, “./standalone/server.js”]
+
+# STAGE 3: app
+FROM base AS app
+ENV NODE_ENV=production
+WORKDIR /app
+COPY --from=build /build/package*.json ./
+COPY --from=build /build/.next ./.next/
+COPY --from=build /build/public ./public/
+COPY --from=build /build/node_modules ./node_modules/
+COPY --from=build /build/next.config.js ./
+
+EXPOSE 80
+CMD ["npm", "start"]
