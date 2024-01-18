@@ -24,8 +24,6 @@ export default async function SignUp(
       password,
       email,
     },
-    {
-      withCredentials: true,
-    }
+    config
   );
 }
