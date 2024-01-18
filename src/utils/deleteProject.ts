@@ -3,7 +3,7 @@ import axios from "axios";
 export default async (projectId: number) => {
   try {
     const response = await axios.delete(
-      `http://localhost:3001/project/${projectId}`
+      `https://api.taskermanager.online/project/${projectId}`
     );
     console.log("Project deleted successfully:", response.data);
   } catch (error) {

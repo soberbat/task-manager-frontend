@@ -9,7 +9,10 @@ export default async (teamId: number, employeeId?: number) => {
   };
 
   try {
-    const response = await axios.post("http://localhost:3001/project", project);
+    const response = await axios.post(
+      "https://api.taskermanager.online/project",
+      project
+    );
     console.log("Project created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);

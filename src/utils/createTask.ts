@@ -12,7 +12,10 @@ export default async (userId: number) => {
   };
 
   try {
-    const response = await axios.post("http://localhost:3001/tasks", task);
+    const response = await axios.post(
+      "https://api.taskermanager.online/tasks",
+      task
+    );
     console.log("Task created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);
