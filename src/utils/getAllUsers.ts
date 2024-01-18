@@ -1,17 +1,14 @@
+import axios from "axios";
 import { TeamMember } from "./app.types";
+import axiosConfig from "./axios.config";
 
-interface ApiResponse {
-  data: {
-    employees: TeamMember[];
-  };
-}
+const productionUrl = "https://api.taskermanager.online/employee/only-mails";
+const devUrl = "http://localhost:3005/employee/only-mails";
+
 export default async () => {
   try {
-    const response = await fetch(
-      "https://api.taskermanager.online/employee/only-mails"
-    );
-    const data = await response.json();
-    return data;
+    const response = await axios.get(productionUrl, axiosConfig);
+    return response.data;
   } catch (error) {
     throw error;
   }

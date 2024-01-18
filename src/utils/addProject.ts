@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosConfig from "./axios.config";
 
 export default async (teamId: number, employeeId?: number) => {
   const project = {
@@ -10,10 +11,11 @@ export default async (teamId: number, employeeId?: number) => {
 
   try {
     const response = await axios.post(
-      "https://api.taskermanager.online/project",
-      project
+      "http://localhost:3005/project",
+      // "https://api.taskermanager.online/project",
+      project,
+      axiosConfig
     );
-    console.log("Project created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);
   }
