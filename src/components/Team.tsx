@@ -6,12 +6,7 @@ import getAllUsers from "@/utils/getAllUsers";
 import addTeammate from "@/utils/addTeammate";
 import fetchUserData from "@/utils/fetchUserData";
 import removeTeamMate from "@/utils/removeTeamMate";
-import {
-  Employee,
-  TeamMember,
-  UserData,
-  UserReturnType,
-} from "@/utils/app.types";
+import { UserReturnType } from "@/utils/app.types";
 
 const Team = () => {
   const [isModelOpen, setisModelOpen] = useState(false);
