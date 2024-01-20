@@ -8,8 +8,8 @@ type data = {
 export default async (projectData: data) => {
   try {
     const response = await axios.post(
-      "http://localhost:3001/project",
-      // "https://api.taskermanager.online/project",
+      // "http://localhost:3001/project",
+      "https://api.taskermanager.online/project",
       projectData,
       axiosConfig
     );
