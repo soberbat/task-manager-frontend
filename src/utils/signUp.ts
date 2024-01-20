@@ -18,7 +18,7 @@ export default async function SignUp(
   email: string
 ) {
   return axios.post(
-    endpoint,
+    productionUrl,
     {
       username,
       password,
