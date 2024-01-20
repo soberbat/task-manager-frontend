@@ -9,13 +9,13 @@ import Task from "./Task";
 import { Project } from "@/utils/app.types";
 
 interface IProjectModal {
-  project: Project;
+  project: Project | null;
   onClose: () => void;
 }
 const ProjectModal = ({ project, onClose }: IProjectModal) => {
   const { userData, setUserData } = useAppStore();
-  const employee = project.employee;
-  const { name, description } = project;
+  const employee = project!.employee;
+  const { name, description } = project!;
   const [selectedTeammate, setSelectedTeammate] = useState(null);
   const [isModalOpen, setisModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +26,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
   };
 
   const handleSaveClick = async () => {
-    await updateProject(project.id, editedData);
+    await updateProject(project!.id, editedData);
     setUserData(await fetchUserData());
     setIsEditing(false);
   };
@@ -36,7 +36,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
     setIsEditing(false);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setEditedData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -93,7 +93,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
         </div>
 
         <div>
-          {project.tasks.map((task) => (
+          {project!.tasks.map((task) => (
             <Task key={task.id} task={task} />
           ))}
         </div>
@@ -134,7 +134,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
       </div>
       {isModalOpen && (
         <Model onClose={onCloseModal}>
-          <CreateTask onSubmit={onCloseModal} projectId={project.id} />
+          <CreateTask onSubmit={onCloseModal} projectId={project!.id} />
         </Model>
       )}
     </div>

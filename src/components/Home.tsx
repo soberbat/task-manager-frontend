@@ -8,7 +8,7 @@ const Home = () => {
 
   const handleTaskRemove = async (taskId: number) => {
     removeTask(taskId);
-    const userData = await fetchUserData(userId);
+    const userData = await fetchUserData();
     setUserData(userData!);
   };
 

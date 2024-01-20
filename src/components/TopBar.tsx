@@ -10,11 +10,11 @@ export interface ITabBar {}
 const TabBar: FC<ITabBar> = () => {
   const { userData, userId, setUserData } = useAppStore();
 
-  const handleCreateTask = async () => {
-    await createTask(userId);
-    const data = await fetchUserData();
-    setUserData(data!);
-  };
+  // const handleCreateTask = async () => {
+  //   await createTask(userId);
+  //   const data = await fetchUserData();
+  //   setUserData(data!);
+  // };
 
   return (
     <div className="h-[7vh]  border-gray-200 border bg-white   px-2 flex items-center justify-between  border-t-0 ">
@@ -24,7 +24,7 @@ const TabBar: FC<ITabBar> = () => {
 
       <Navigation />
       <div
-        onClick={handleCreateTask}
+        // onClick={handleCreateTask}
         className="  p-[0.6rem]  px-6   font-extrabold   text-white bg-[#0028a1] rounded-full    text-[0.7rem]"
       >
         + TASK

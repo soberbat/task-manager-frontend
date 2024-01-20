@@ -8,6 +8,7 @@ import Model from "./Model";
 import findProject from "@/utils/findProject";
 import CreateProjectModal from "./CreateProjectModal";
 import ProjectModal from "./ProjectModal";
+import { Project } from "@/utils/app.types";
 
 enum Modal {
   ProjectModal,
@@ -17,7 +18,7 @@ enum Modal {
 const Projects = () => {
   const { setUserData, userData } = useAppStore();
   const [isModelOpen, setisModelOpen] = useState(false);
-  const [project, setProject] = useState({});
+  const [project, setProject] = useState<Project | null>(null);
   const [projectId, setProjectId] = useState(0);
   const [ModalType, setModalType] = useState<Modal>(Modal.CreateProjectModal);
 
