@@ -12,7 +12,7 @@ const TabBar: FC<ITabBar> = () => {
 
   const handleCreateTask = async () => {
     await createTask(userId);
-    const data = await fetchUserData(userId);
+    const data = await fetchUserData();
     setUserData(data!);
   };
 

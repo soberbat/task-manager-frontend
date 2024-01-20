@@ -2,8 +2,9 @@ import axios from "axios";
 import { TeamMember } from "./app.types";
 import axiosConfig from "./axios.config";
 
-const productionUrl = "https://api.taskermanager.online/employee/only-mails";
-const devUrl = "http://localhost:3005/employee/only-mails";
+const productionUrl =
+  "https://api.taskermanager.online/employee/get-all-only-mails";
+const devUrl = "http://localhost:3001/employee/get-all-only-mails";
 
 export default async () => {
   try {

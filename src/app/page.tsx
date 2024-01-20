@@ -7,14 +7,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { setUserData, userData, setTeamId, setUserId } = useAppStore();
+  const { setUserData, userData, setTeamId } = useAppStore();
 
   const getAppData = async () => {
-    const userId = (await getUserId()).data;
-    console.log(userId);
-    setUserId(userId);
-    const userData = await fetchUserData(userId);
-    console.log(userData);
+    const userData = await fetchUserData();
     const teamId = userData?.teams?.[0]?.teamId;
     setTeamId(teamId!);
     setUserData(userData!);

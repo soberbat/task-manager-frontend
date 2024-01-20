@@ -10,12 +10,15 @@ export interface Employee {
   email: string;
 }
 
-interface Project {
+export interface Project {
   id: number;
   name: string;
-  description: string;
+  description?: string | null;
+  tasks: Task[];
   teamId: number;
-  employeeId: number;
+  employeeId?: number | null;
+  team: Team;
+  employee?: Employee | null;
 }
 
 interface EmployeeOnTeams {
@@ -28,6 +31,16 @@ export interface UserReturnType {
   username: string;
   email: string;
   teams: EmployeeOnTeams[];
+}
+
+export interface Task {
+  id: number;
+  title: string;
+  description: string | null;
+  priority: string;
+  employee: Employee;
+  projectId?: number | null;
+  project?: Project | null;
 }
 
 export interface TeamMember {

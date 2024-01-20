@@ -1,21 +1,19 @@
-import useAppStore from "@/store/AppStore";
 import axios from "axios";
-import fetchUserData from "./fetchUserData";
 
-export default async (userId: number) => {
-  const task = {
-    title: "Sample Task",
-    description: "This is a fake task for testing purposes.",
-    priority: "High",
-    completed: false,
-    userId,
-  };
+const productionUrl = "https://api.taskermanager.online/tasks";
+const devUrl = "http://localhost:3001/tasks";
 
+type TaskData = {
+  userId: number;
+  projectId: number | null;
+  title: string;
+  description: string;
+  priority: string;
+  completed: boolean;
+};
+export default async (taskData: TaskData) => {
   try {
-    const response = await axios.post(
-      "https://api.taskermanager.online/tasks",
-      task
-    );
+    const response = await axios.post(productionUrl, taskData);
     console.log("Task created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);

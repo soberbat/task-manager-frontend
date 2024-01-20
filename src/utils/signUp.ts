@@ -9,8 +9,8 @@ const config = {
   },
 };
 
-const productionUrl = "https://api.taskermanager.online/employee";
-const endpoint = "http://localhost:3005/employee";
+const productionUrl = "https://api.taskermanager.online/auth/signup";
+const endpoint = "http://localhost:3001/auth/signup";
 
 export default async function SignUp(
   username: string,
@@ -18,7 +18,7 @@ export default async function SignUp(
   email: string
 ) {
   return axios.post(
-    productionUrl,
+    endpoint,
     {
       username,
       password,

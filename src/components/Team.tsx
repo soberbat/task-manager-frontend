@@ -14,6 +14,7 @@ const Team = () => {
   const [searchTerm, setSearchTerm] = useState("xksfskfskfsk");
   const { userData, teamId, setUserData, userId } = useAppStore();
   const teamMembers = userData?.teams?.[0]?.team?.members;
+
   const filteredUsers =
     searchTerm === ""
       ? []
@@ -29,13 +30,12 @@ const Team = () => {
 
   const getUsers = useCallback(async () => {
     const data = await getAllUsers();
-    console.log(data);
     setUsers(data);
   }, []);
 
   const onTeamMateAdd = useCallback(async (userToAddId: number) => {
-    await addTeammate(teamId, userToAddId);
-    const userData = await fetchUserData(userId);
+    await addTeammate(userToAddId);
+    const userData = await fetchUserData();
     setUserData(userData!);
     getUsers();
     setSearchTerm("");
@@ -44,7 +44,7 @@ const Team = () => {
 
   const onTeamMateRemove = useCallback(async (userToRemove: number) => {
     const data = await removeTeamMate(teamId, userToRemove);
-    const userData = await fetchUserData(userId);
+    // const userData = await fetchUserData(userId);
     setUserData(userData!);
     getUsers();
   }, []);
@@ -58,9 +58,9 @@ const Team = () => {
       {teamMembers?.map(({ employee: { username, id } }) => (
         <div
           key={id}
-          className="w-24 h-24  border border-gray-100 relative   bg-white rounded-full  flex-col  text-center flex items-center justify-center"
+          className="w-24 h-24  border border-gray-100 relative   text-black  bg-white rounded-full  flex-col  text-center flex items-center justify-center"
         >
-          <span>{username} </span>
+          <span className="break-words">{username} </span>
           <div
             onClick={() => onTeamMateRemove(id)}
             className="w-full h-full rounded-full absolute  flex items-center justify-center transition-all ease-in  opacity-0 hover:opacity-100 top-0 left-0  hover:bg-gray-50  "
@@ -80,7 +80,7 @@ const Team = () => {
         {isModelOpen && (
           <Model onClose={onEmployeeAdd}>
             <div>
-              <div className=" w-full mx-auto mt-4 p-6 rounded-md">
+              <div className=" w-full mx-auto mt-4 p-6  h-[45vh]  overflow-hidden  rounded-md">
                 <div className="text-2xl font-bold mb-2  text-gray-600">
                   Add Teammates
                 </div>
@@ -89,7 +89,7 @@ const Team = () => {
                     type="text"
                     placeholder="Search"
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full py-2 pl-10 pr-4 border rounded-md focus:outline-none focus:border-gray-500"
+                    className="w-full py-2 pl-10 pr-4 border rounded-md  text-black focus:outline-none focus:border-gray-500"
                   />
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <svg
@@ -110,15 +110,15 @@ const Team = () => {
                   </span>
                 </div>
 
-                <div className="mt-6 ">
-                  <ul className="list-none">
+                <div className="mt-6  overflow-scroll    w-full h-[50vh] ">
+                  <div className=" ">
                     {filteredUsers.length === 0 ? (
-                      <li className="text-gray-500">
+                      <div className="text-gray-500">
                         No matching users found.
-                      </li>
+                      </div>
                     ) : (
                       filteredUsers.map(({ id, username, email }) => (
-                        <li
+                        <div
                           key={id}
                           className="text-gray-700 hover:bg-gray-50 rounded-md p-2 mb-4"
                         >
@@ -134,10 +134,10 @@ const Team = () => {
                               +
                             </span>
                           </div>
-                        </li>
+                        </div>
                       ))
                     )}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </div>
