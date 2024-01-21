@@ -9,7 +9,7 @@ on:
 jobs:
   development:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event.ref == 'refs/heads/development'
     environment: Development
     steps:
       - name: Code Checkout
