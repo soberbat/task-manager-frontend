@@ -44,7 +44,7 @@ const Team = () => {
 
   const onTeamMateRemove = useCallback(async (userToRemove: number) => {
     const data = await removeTeamMate(teamId, userToRemove);
-    // const userData = await fetchUserData(userId);
+    const userData = await fetchUserData();
     setUserData(userData!);
     getUsers();
   }, []);
