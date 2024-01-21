@@ -35,30 +35,35 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-gray-50 text-black w-screen h-screen flex-col flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-gray-500">Log In</h1>
+    <div className="bg-gray-50 text-black w-screen h-screen  flex items-center justify-between">
+      <img className=" h-full w-1/2 " src="/bg.jpg" alt="" />
 
-      <form className="flex mt-10 w-1/4 flex-col gap-6">
-        {inputFields.map(({ label, stateSetter, type }) => (
-          <div key={label} className=" ">
-            <span className="block  text-gray-500 mb-0">{label}</span>
+      <div className="flex items-center justify-center w-1/2 ">
+        <form className="flex mt-10 w-1/2  flex-col    gap-6">
+          <h1 className="text-5xl font-bold text-center text-gray-500">
+            Log In
+          </h1>
+          {inputFields.map(({ label, stateSetter, type }) => (
+            <div key={label} className=" ">
+              <span className="block  text-gray-500 mb-0">{label}</span>
+              <input
+                type={type}
+                onInput={(e) => onInputChange(e, stateSetter)}
+                className=" h-8 p-2   focus:outline-none w-full rounded-sm"
+              />
+            </div>
+          ))}
+
+          <div className="flex items-center gap-2 justify-center">
             <input
-              type={type}
-              onInput={(e) => onInputChange(e, stateSetter)}
-              className=" h-8 p-2  w-full rounded-sm"
+              className="bg-white rounded-sm h-9  w-1/3  "
+              type="submit"
+              onClick={onLogin}
             />
           </div>
-        ))}
-
-        <div className="flex items-center gap-2 justify-center">
-          <input
-            className="bg-white rounded-sm h-9  w-1/3  "
-            type="submit"
-            onClick={onLogin}
-          />
-        </div>
-        {message}
-      </form>
+          {message}
+        </form>
+      </div>
     </div>
   );
 }

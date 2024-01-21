@@ -38,36 +38,40 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-50 text-black w-screen h-screen flex-col flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-gray-500">Sign Up</h1>
+    <div className="bg-gray-50 text-black w-screen h-screen flex items-center justify-center">
+      <img className=" h-full w-1/2 " src="/bg.jpg" alt="" />
 
-      <form className="flex mt-10 w-1/4 flex-col gap-6">
-        {inputFields.map(({ label, stateSetter, type }) => (
-          <div key={label} className=" ">
-            <span className="block  text-gray-500   mb-0">{label}</span>
+      <div className="flex items-center flex-col justify-center w-1/2 ">
+        <h1 className="text-5xl font-bold text-gray-500">Sign Up</h1>
+        <form className="flex mt-10 w-1/2 flex-col gap-6">
+          {inputFields.map(({ label, stateSetter, type }) => (
+            <div key={label} className=" ">
+              <span className="block  text-gray-500   mb-0">{label}</span>
+              <input
+                type={type}
+                onInput={(e) => onInputChange(e, stateSetter)}
+                className=" h-8 p-2 border border-gray-100  focus:outline-none w-full rounded-sm"
+              />
+            </div>
+          ))}
+
+          <div className="flex items-center gap-2 justify-center">
             <input
-              type={type}
-              onInput={(e) => onInputChange(e, stateSetter)}
-              className=" h-8 p-2 border border-gray-100  focus:outline-none w-full rounded-sm"
+              className="bg-white rounded-sm h-9  w-1/3  "
+              type="submit"
+              onClick={onSignUp}
             />
           </div>
-        ))}
+          {message}
+        </form>
 
-        <div className="flex items-center gap-2 justify-center">
-          <input
-            className="bg-white rounded-sm h-9  w-1/3  "
-            type="submit"
-            onClick={onSignUp}
-          />
-        </div>
-        {message}
-      </form>
-      <span className=" mt-6   text-gray-400 text-xs ">
-        Have an account?
-        <Link href={"/login"}>
-          <span className=" hover:text-gray-500"> Click here </span>
-        </Link>
-      </span>
+        <span className=" mt-6   text-gray-400 text-xs ">
+          Have an account?
+          <Link href={"/login"}>
+            <span className=" hover:text-gray-500"> Click here </span>
+          </Link>
+        </span>
+      </div>
     </div>
   );
 }

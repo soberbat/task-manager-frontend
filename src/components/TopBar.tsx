@@ -4,17 +4,19 @@ import React, { FC, useState } from "react";
 import Navigation from "./Navigation";
 import createTask from "@/utils/createTask";
 import fetchUserData from "@/utils/fetchUserData";
+import Logout from "@/utils/logout";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export interface ITabBar {}
 
 const TabBar: FC<ITabBar> = () => {
   const { userData, userId, setUserData } = useAppStore();
-
-  // const handleCreateTask = async () => {
-  //   await createTask(userId);
-  //   const data = await fetchUserData();
-  //   setUserData(data!);
-  // };
+  const router = useRouter();
+  const handleLogOut = async () => {
+    await Logout();
+    router.push("/login");
+  };
 
   return (
     <div className="h-[7vh]  border-gray-200 border bg-white   px-2 flex items-center justify-between  border-t-0 ">
@@ -23,11 +25,15 @@ const TabBar: FC<ITabBar> = () => {
       </div>
 
       <Navigation />
+
       <div
-        // onClick={handleCreateTask}
-        className="  p-[0.6rem]  px-6   font-extrabold   text-white bg-[#0028a1] rounded-full    text-[0.7rem]"
+        className=" flex items-center w-10 h-10 rounded-full cursor-pointer bg-gray-100  text-[.8rem] break-words flex-col justify-center  text-black"
+        onClick={handleLogOut}
       >
-        + TASK
+        <div className=" transform  text-2xl flex items-center     text-gray-600 justify-center -scale-x-100">
+          {" "}
+          &#8592;{" "}
+        </div>
       </div>
     </div>
   );

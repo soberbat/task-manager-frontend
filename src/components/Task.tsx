@@ -67,7 +67,7 @@ const Task = ({ task, isInMyTasks = true }: ITask) => {
   return (
     <div
       key={task.id}
-      className="bg-white p-4 mb-4 border  relative  cursor-pointer rounded-md "
+      className="bg-white p-4 mb-4 border text-gray-500  relative  cursor-pointer rounded-md "
     >
       <h3 className="text-xl font-semibold">
         {isEditMode ? (

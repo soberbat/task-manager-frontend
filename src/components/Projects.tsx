@@ -75,11 +75,10 @@ const Projects = () => {
             className=" w-60 h-12 border  border-gray-200  relative flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
           >
             <span className="cursor-pointer" onClick={() => onProjectClick(id)}>
-              {" "}
-              {name}{" "}
+              {name}
             </span>
             <span
-              className=" block  cursor-pointer absolute right-1  transform  top-1/2 -translate-y-1/2 "
+              className="  cursor-pointer absolute right-1 rounded-full bg-gray-100 w-5 h-5 flex items-center justify-center  text-xs transform  top-1/2 -translate-y-1/2 "
               onClick={() => onProjectDelete(id)}
             >
               X

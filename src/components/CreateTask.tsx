@@ -4,15 +4,16 @@ import fetchUserData from "@/utils/fetchUserData";
 import React, { useState } from "react";
 
 interface ICreateTask {
-  projectId: number;
+  projectId?: number;
   onSubmit: () => void;
+  userId?: number;
 }
-const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
+const CreateTask = ({ projectId, onSubmit, userId }: ICreateTask) => {
   const { userData, setUserData } = useAppStore();
   const teamMembers = userData?.teams?.[0]?.team?.members;
   const [taskData, setTaskData] = useState({
-    userId: 0,
-    projectId,
+    userId: userId && userId,
+    projectId: projectId && projectId,
     title: "",
     description: "",
     priority: "",
@@ -39,10 +40,12 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
 
   return (
     <div className="bg-white p-8 rounded shadow-md  h-full overflow-scroll ">
-      <h2 className="text-2xl font-semibold mb-4">Add a Task</h2>
+      <h2 className="text-2xl   text-gray-600 font-semibold mb-4">
+        Add a Task
+      </h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="mb-4    text-gray-500">
           <label
             htmlFor="title"
             className="block text-sm font-medium text-gray-600"
@@ -71,7 +74,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="description"
             value={taskData.description}
             onChange={handleChange}
-            className="mt-1 p-2 w-full  border-b  focus:outline-none focus:border-b focus:border-b-gray-200"
+            className="mt-1 p-2 w-full  border-b text-gray-600  focus:outline-none focus:border-b focus:border-b-gray-200"
           />
         </div>
 
@@ -87,7 +90,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="priority"
             value={taskData.priority}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border-b  focus:outline-none focus:border-b focus:border-b-gray-200"
+            className="mt-1 p-2 w-full border-b text-gray-600  focus:outline-none focus:border-b focus:border-b-gray-200"
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -95,30 +98,32 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="userId"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Assignee
-          </label>
-          <select
-            id="userId"
-            name="userId"
-            value={taskData.userId}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full  border-b focus:outline-none focus:border-b focus:border-b-gray-200"
-          >
-            <option value={0} disabled>
-              Select assignee
-            </option>
-            {teamMembers!.map(({ employee }) => (
-              <option key={employee.id} value={Number(employee.id)}>
-                {employee.username}
+        {!userId && (
+          <div className="mb-4">
+            <label
+              htmlFor="userId"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Assignee
+            </label>
+            <select
+              id="userId"
+              name="userId"
+              value={taskData.userId}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full  border-b focus:outline-none focus:border-b focus:border-b-gray-200"
+            >
+              <option value={0} disabled>
+                Select assignee
               </option>
-            ))}
-          </select>
-        </div>
+              {teamMembers!.map(({ employee }) => (
+                <option key={employee.id} value={Number(employee.id)}>
+                  {employee.username}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <button
           type="submit"

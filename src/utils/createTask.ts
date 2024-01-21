@@ -4,8 +4,8 @@ const productionUrl = "https://api.taskermanager.online/tasks";
 const devUrl = "http://localhost:3001/tasks";
 
 type TaskData = {
-  userId: number;
-  projectId: number | null;
+  userId: number | null | undefined;
+  projectId: number | null | undefined;
   title: string;
   description: string;
   priority: string;
