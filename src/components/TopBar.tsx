@@ -4,9 +4,9 @@ import React, { FC, useState } from "react";
 import Navigation from "./Navigation";
 import createTask from "@/utils/createTask";
 import fetchUserData from "@/utils/fetchUserData";
-import Logout from "@/utils/logout";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import Logout from "@/utils/logout";
 
 export interface ITabBar {}
 
