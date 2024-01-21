@@ -33,10 +33,12 @@ export default function LoginPage() {
   ) => {
     stateSetter(e.currentTarget.value);
   };
+  const imgSrc =
+    "https://images.unsplash.com/photo-1705783679154-c47fab616434?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   return (
     <div className="bg-gray-50 text-black w-screen h-screen  flex items-center justify-between">
-      <img className=" h-full w-1/2 " src="/bg.jpg" alt="" />
+      <img className=" h-full w-1/2 " src={imgSrc} alt="" />
 
       <div className="flex items-center justify-center w-1/2 ">
         <form className="flex mt-10 w-1/2  flex-col    gap-6">
