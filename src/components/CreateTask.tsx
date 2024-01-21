@@ -12,7 +12,7 @@ const CreateTask = ({ projectId, onSubmit, userId }: ICreateTask) => {
   const { userData, setUserData } = useAppStore();
   const teamMembers = userData?.teams?.[0]?.team?.members;
   const [taskData, setTaskData] = useState({
-    userId: userId && userId,
+    userId: userId ?? userData?.id,
     projectId: projectId && projectId,
     title: "",
     description: "",

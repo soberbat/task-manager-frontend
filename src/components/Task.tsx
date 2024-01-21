@@ -1,6 +1,7 @@
 import useAppStore from "@/store/AppStore";
 import { Task } from "@/utils/app.types";
 import fetchUserData from "@/utils/fetchUserData";
+import removeTask from "@/utils/removeTask";
 import updateTask from "@/utils/updateTask";
 import React, { useState } from "react";
 
@@ -23,6 +24,12 @@ const Task = ({ task, isInMyTasks = true }: ITask) => {
   const handleAssignTaskClick = () => {
     if (!isEditMode) return;
     setIsAssigningTask(true);
+  };
+
+  const onRemoveTask = async (taskId: number) => {
+    await removeTask(taskId);
+    const userData = await fetchUserData();
+    setUserData(userData);
   };
   const onEditClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     if (isEditMode) {
@@ -120,6 +127,7 @@ const Task = ({ task, isInMyTasks = true }: ITask) => {
             )}`}
           ></div>
         )}
+
         {!isInMyTasks && (
           <div
             onClick={handleAssignTaskClick}
@@ -160,6 +168,15 @@ const Task = ({ task, isInMyTasks = true }: ITask) => {
             </button>
           </div>
         </div>
+      )}
+
+      {isEditMode && (
+        <span
+          className="  cursor-pointer absolute top-3 right-3  rounded-full bg-gray-100 w-5 h-5 flex items-center justify-center  text-xs transform   "
+          onClick={() => onRemoveTask(task.id)}
+        >
+          X
+        </span>
       )}
     </div>
   );
