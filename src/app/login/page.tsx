@@ -1,31 +1,29 @@
 "use client";
-import SignUp from "@/utils/signUp";
+
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState, MouseEvent, Dispatch, FormEvent } from "react";
+import Login from "@/utils/login";
 
-export default function Home() {
+export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const inputFields = [
-    { label: "Name", stateSetter: setUsername, type: "input" },
+    { label: "Email", stateSetter: setEmail, type: "input" },
     { label: "Password", stateSetter: setPassword, type: "password" },
-    { label: "E Mail", stateSetter: setEmail, type: "input" },
   ];
 
-  const onSignUp = async (e: MouseEvent<HTMLElement>) => {
+  const onLogin = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-
-    const response = await SignUp(username, password, email);
+    const response = await Login(email, password);
 
     if (response.status === 201) {
       router.push("/");
     } else {
-      setMessage(message);
+      setMessage("Wrong Creds");
     }
   };
 
@@ -38,16 +36,16 @@ export default function Home() {
 
   return (
     <div className="bg-gray-50 text-black w-screen h-screen flex-col flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-gray-500">Sign Up</h1>
+      <h1 className="text-5xl font-bold text-gray-500">Log In</h1>
 
       <form className="flex mt-10 w-1/4 flex-col gap-6">
         {inputFields.map(({ label, stateSetter, type }) => (
           <div key={label} className=" ">
-            <span className="block  text-gray-500   mb-0">{label}</span>
+            <span className="block  text-gray-500 mb-0">{label}</span>
             <input
               type={type}
               onInput={(e) => onInputChange(e, stateSetter)}
-              className=" h-8 p-2 border border-gray-100  focus:outline-none w-full rounded-sm"
+              className=" h-8 p-2  w-full rounded-sm"
             />
           </div>
         ))}
@@ -56,7 +54,7 @@ export default function Home() {
           <input
             className="bg-white rounded-sm h-9  w-1/3  "
             type="submit"
-            onClick={onSignUp}
+            onClick={onLogin}
           />
         </div>
         {message}
