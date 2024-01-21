@@ -34,7 +34,7 @@ jobs:
           GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
           REPO: ${{ secrets.REPO }}
         run: |
-          gcloud run deploy task-manager-frontend-DEV \
+          gcloud run deploy task-manager-frontend-dev \
             --region europe-west1 \
             --image=europe-west1-docker.pkg.dev/dev-sphere-410611/demo/frontend.dev \
             --allow-unauthenticated
