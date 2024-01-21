@@ -6,9 +6,10 @@ import React, { useState } from "react";
 
 interface ITask {
   task: Task;
+  isInMyTasks?: boolean;
 }
 
-const Task = ({ task }: ITask) => {
+const Task = ({ task, isInMyTasks = true }: ITask) => {
   const [isAssigningTask, setIsAssigningTask] = useState(false);
   const { userData, setUserData } = useAppStore();
   const teamMembers = userData?.teams?.[0]?.team?.members;
@@ -119,12 +120,14 @@ const Task = ({ task }: ITask) => {
             )}`}
           ></div>
         )}
-        <div
-          onClick={handleAssignTaskClick}
-          className="w-10 h-10 items-center justify-center flex cursor-pointer ont-extrabold text-2xl rounded-full bg-gray-100 text-black text-[0.8rem] ml-2"
-        >
-          {task.employee.username[0]}
-        </div>
+        {!isInMyTasks && (
+          <div
+            onClick={handleAssignTaskClick}
+            className="w-10 h-10 items-center justify-center flex cursor-pointer ont-extrabold text-2xl rounded-full bg-gray-100 text-black text-[0.8rem] ml-2"
+          >
+            {task.employee.username[0]}
+          </div>
+        )}
         <div onClick={onEditClick} className=" text-gray-500 ml-2">
           {" "}
           Edit

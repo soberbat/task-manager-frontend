@@ -2,6 +2,7 @@ import useAppStore from "@/store/AppStore";
 import fetchUserData from "@/utils/fetchUserData";
 import removeTask from "@/utils/removeTask";
 import React, { useEffect } from "react";
+import Task from "./Task";
 
 const Home = () => {
   const { userData, setUserData, userId } = useAppStore();
@@ -12,6 +13,7 @@ const Home = () => {
     setUserData(userData!);
   };
 
+  console.log(userData?.tasks);
   return (
     <div className=" bg-white h-full  overflow-scroll  p-10">
       <div className="max-w-4xl   mx-auto ">
@@ -24,19 +26,8 @@ const Home = () => {
         <div>
           <h1 className="text-black mb-3   text-lg">My Tasks</h1>
           <div>
-            {userData?.tasks.map(({ title, id }) => (
-              <div
-                key={id}
-                className=" p-[.9vh] mb-2 flex justify-between  hover:bg-gray-50 rounded-lg"
-              >
-                <h1 className="  text-black ml-2"> {title} </h1>
-                <span
-                  onClick={() => handleTaskRemove(id)}
-                  className=" text-gray-500"
-                >
-                  X
-                </span>
-              </div>
+            {userData?.tasks.map((task) => (
+              <Task task={task} />
             ))}
           </div>
         </div>

@@ -94,7 +94,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
 
         <div>
           {project!.tasks.map((task) => (
-            <Task key={task.id} task={task} />
+            <Task isInMyTasks={false} key={task.id} task={task} />
           ))}
         </div>
 
