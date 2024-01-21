@@ -26,8 +26,8 @@ const Home = () => {
         <div>
           <h1 className="text-black mb-3   text-lg">My Tasks</h1>
           <div>
-            {userData?.tasks.map((task) => (
-              <Task task={task} />
+            {userData?.tasks.map((task, i) => (
+              <Task key={i} task={task} />
             ))}
           </div>
         </div>
