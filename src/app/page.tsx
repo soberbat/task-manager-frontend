@@ -12,6 +12,7 @@ export default function Home() {
   const getAppData = async () => {
     const userData = await fetchUserData();
     const teamId = userData?.teams?.[0]?.teamId;
+
     setTeamId(teamId!);
     setUserData(userData!);
   };
