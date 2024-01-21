@@ -48,7 +48,7 @@ const CreateProjectModal = ({ setisModelOpen }: ICreateProjectModal) => {
             name="name"
             value={data.name}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full border  focus:outline-none  rounded-md"
           />
         </div>
 
@@ -61,13 +61,13 @@ const CreateProjectModal = ({ setisModelOpen }: ICreateProjectModal) => {
             name="description"
             value={data.description}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full border  focus:outline-none  rounded-md"
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="bg-gray-300 text-white px-4 py-2 block rounded-md hover:bg-gray-400 focus:outline-none focus:ring focus:border-blue-300 transition"
+          className="bg-gray-300 text-white px-4 py-2 block  focus:outline-none rounded-md hover:bg-gray-400  transition"
         >
           Create Project
         </button>

@@ -68,7 +68,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
               name="name"
               value={editedData.name}
               onChange={handleInputChange}
-              className="mt-1 p-2 w-full  text-4xl font-semibold  text-gray-700 rounded-md"
+              className="mt-1 p-2 w-full  text-4xl font-semibold  focus:outline-none focus:border-b focus:border-b-gray-200 text-gray-700 "
             />
           ) : (
             <div className="mt-1 p-2 text-4xl font-semibold  text-gray-700 rounded-md">
@@ -85,7 +85,7 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
               name="description"
               value={editedData.description!}
               onChange={handleInputChange}
-              className="mt-1 p-2 w-full  rounded-md"
+              className="mt-1 p-2 w-full   focus:outline-none focus:border-b focus:border-b-gray-200 "
             />
           ) : (
             <div className="mt-1 p-2  rounded-md">{editedData.description}</div>

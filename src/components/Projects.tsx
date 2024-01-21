@@ -61,7 +61,7 @@ const Projects = () => {
           layout
           onClick={onAddProjectClick}
           key={"3131"}
-          className=" w-60 h-12 border cursor-pointer border-gray-200  flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
+          className=" w-60 h-12 border  cursor-pointer  border-gray-200  flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
         >
           <span>+ Add a Project</span>
         </motion.div>
@@ -69,14 +69,21 @@ const Projects = () => {
           <motion.div
             key={id}
             layout
-            onClick={() => onProjectClick(id)}
             initial={{ opacity: 0 }}
             exit={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className=" w-60 h-12 border cursor-pointer border-gray-200  flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
+            className=" w-60 h-12 border  border-gray-200  relative flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
           >
-            <span> {name} </span>
-            <span onClick={() => onProjectDelete(id)}>X</span>
+            <span className="cursor-pointer" onClick={() => onProjectClick(id)}>
+              {" "}
+              {name}{" "}
+            </span>
+            <span
+              className=" block  cursor-pointer absolute right-1  transform  top-1/2 -translate-y-1/2 "
+              onClick={() => onProjectDelete(id)}
+            >
+              X
+            </span>
           </motion.div>
         ))}
       </AnimatePresence>

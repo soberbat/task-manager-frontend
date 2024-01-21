@@ -55,7 +55,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="title"
             value={taskData.title}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full border-b  focus:outline-none focus:border-b focus:border-b-gray-200 "
           />
         </div>
 
@@ -71,7 +71,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="description"
             value={taskData.description}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full  border-b  focus:outline-none focus:border-b focus:border-b-gray-200"
           />
         </div>
 
@@ -87,7 +87,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="priority"
             value={taskData.priority}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full border-b  focus:outline-none focus:border-b focus:border-b-gray-200"
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -107,7 +107,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
             name="userId"
             value={taskData.userId}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
+            className="mt-1 p-2 w-full  border-b focus:outline-none focus:border-b focus:border-b-gray-200"
           >
             <option value={0} disabled>
               Select assignee
@@ -122,7 +122,7 @@ const CreateTask = ({ projectId, onSubmit }: ICreateTask) => {
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 transition"
+          className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-300  focus:outline-none transition"
         >
           Submit Task
         </button>

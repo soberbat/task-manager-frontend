@@ -12,9 +12,9 @@ export default function Home() {
   const [message, setMessage] = useState("");
 
   const inputFields = [
-    { label: "Username", stateSetter: setUsername },
-    { label: "Password", stateSetter: setPassword },
-    { label: "E Mail", stateSetter: setEmail },
+    { label: "Username", stateSetter: setUsername, type: "input" },
+    { label: "Password", stateSetter: setPassword, type: "password" },
+    { label: "E Mail", stateSetter: setEmail, type: "input" },
   ];
 
   const onSignUp = async (e: MouseEvent<HTMLElement>) => {
@@ -37,16 +37,17 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-200 text-black w-screen h-screen flex-col flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-gray-600">Sign Up</h1>
+    <div className="bg-gray-50 text-black w-screen h-screen flex-col flex items-center justify-center">
+      <h1 className="text-5xl font-bold text-gray-500">Sign Up</h1>
 
       <form className="flex mt-10 w-1/4 flex-col gap-6">
-        {inputFields.map(({ label, stateSetter }) => (
+        {inputFields.map(({ label, stateSetter, type }) => (
           <div key={label} className=" ">
-            <span className="block  text-gray-500 mb-0">{label}</span>
+            <span className="block  text-gray-500   mb-0">{label}</span>
             <input
+              type={type}
               onInput={(e) => onInputChange(e, stateSetter)}
-              className=" h-8 p-2  w-full rounded-sm"
+              className=" h-8 p-2 border border-gray-100  focus:outline-none w-full rounded-sm"
             />
           </div>
         ))}
