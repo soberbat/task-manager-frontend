@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosConfig from "./axios.config";
 
 export default async (taskData: {}, taskId: number) => {
-  const productionUrl = `https://api.taskermanager.online/project/${taskId}`;
+  const productionUrl = `https://api.taskermanager.online/tasks/${taskId}`;
   const devUrl = `http://localhost:3001/tasks/${taskId}`;
   try {
     const response = await axios.patch(productionUrl, taskData, axiosConfig);
