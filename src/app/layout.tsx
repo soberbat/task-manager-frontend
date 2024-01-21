@@ -3,7 +3,7 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 
 const rubik = Rubik({
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "700", "900"],
   subsets: ["cyrillic"],
 });
 
