@@ -1,6 +1,7 @@
 "use client";
 import SignUp from "@/utils/signUp";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState, MouseEvent, Dispatch, FormEvent } from "react";
 
@@ -61,6 +62,12 @@ export default function Home() {
         </div>
         {message}
       </form>
+      <span className=" mt-6   text-gray-400 text-xs ">
+        Have an account?
+        <Link href={"/login"}>
+          <span className=" hover:text-gray-500"> Click here </span>
+        </Link>
+      </span>
     </div>
   );
 }
