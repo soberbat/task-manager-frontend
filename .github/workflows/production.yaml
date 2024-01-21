@@ -2,12 +2,14 @@ name: Push Deployment
 
 on:
   push:
-    branches:
-      - "main"
+    branches: [main, development]
+  pull_request:
+    branches: [main]
 
 jobs:
   development:
     runs-on: ubuntu-latest
+    if: github.event_name == "pull request"
     environment: Development
     steps:
       - name: Code Checkout
@@ -41,8 +43,8 @@ jobs:
 
   production:
     runs-on: ubuntu-latest
+    if: github.event.ref == "refs/heads/main"
     environment: Production
-    needs: Development
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
