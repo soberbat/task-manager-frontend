@@ -1,4 +1,4 @@
-name: Push Deployment
+name: Frontend Push Deployment
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   development:
     runs-on: ubuntu-latest
-    if: github.event.ref == 'refs/heads/development'
+    if: github.event.name == 'pull_request'
     environment: Development
     steps:
       - name: Code Checkout
