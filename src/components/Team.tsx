@@ -39,6 +39,7 @@ const Team = () => {
     setUserData(userData!);
     getUsers();
     setSearchTerm("");
+
     setisModelOpen(false);
   }, []);
 
