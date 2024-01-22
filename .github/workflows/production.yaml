@@ -2,7 +2,7 @@ name: Frontend Push Deployment
 
 on:
   push:
-    branches: [main, development]
+    branches: [main]
   pull_request:
     branches: [development]
 
