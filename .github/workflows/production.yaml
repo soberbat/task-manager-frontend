@@ -2,15 +2,13 @@ name: Frontend Push Deployment
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main, development]
+  pull_request:
+    branches: [development]
 
 jobs:
   development:
     runs-on: ubuntu-latest
-
-    if: github.event.name == 'pull_request'
     environment: Development
     steps:
       - name: Code Checkout
@@ -44,7 +42,6 @@ jobs:
 
   production:
     runs-on: ubuntu-latest
-
     if: github.event.ref == 'refs/heads/main'
     environment: Production
     steps:
