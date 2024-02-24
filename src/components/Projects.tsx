@@ -16,10 +16,9 @@ enum Modal {
 }
 
 const Projects = () => {
-  const { setUserData, userData } = useAppStore();
+  const { setUserData, userData, projectId } = useAppStore();
   const [isModelOpen, setisModelOpen] = useState(false);
   const [project, setProject] = useState<Project | null>(null);
-  const [projectId, setProjectId] = useState(0);
   const [ModalType, setModalType] = useState<Modal>(Modal.CreateProjectModal);
 
   const onAddProjectClick = () => {
@@ -33,19 +32,11 @@ const Projects = () => {
   };
 
   useEffect(() => {
-    getProjectInfo();
+    if (projectId) getProjectInfo();
   }, [userData, projectId]);
 
   const onModalClose = () => {
     setisModelOpen(false);
-  };
-
-  const onProjectClick = async (projectId: number) => {
-    setProjectId(projectId);
-    const project = await findProject(projectId);
-    setProject(project);
-    setModalType(Modal.ProjectModal);
-    setisModelOpen(true);
   };
 
   const onProjectDelete = async (projectId: number) => {
@@ -55,49 +46,8 @@ const Projects = () => {
   };
 
   return (
-    <div className="text-black p-6 h-full flex gap-2  content-start  justify-center   flex-wrap ">
-      <AnimatePresence>
-        <motion.div
-          layout
-          onClick={onAddProjectClick}
-          key={"3131"}
-          className=" w-60 h-12 border  cursor-pointer  border-gray-200  flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
-        >
-          <span>+ Add a Project</span>
-        </motion.div>
-        {userData?.projects?.map(({ name, id }) => (
-          <motion.div
-            key={id}
-            layout
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className=" w-60 h-12 border  border-gray-200  relative flex items-center justify-center text-gray-500   text-sm bg-white rounded-lg "
-          >
-            <span className="cursor-pointer" onClick={() => onProjectClick(id)}>
-              {name}
-            </span>
-            <span
-              className="  cursor-pointer absolute right-1 rounded-full bg-gray-100 w-5 h-5 flex items-center justify-center  text-xs transform  top-1/2 -translate-y-1/2 "
-              onClick={() => onProjectDelete(id)}
-            >
-              X
-            </span>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isModelOpen && (
-          <Model onClose={onModalClose}>
-            {ModalType === Modal.CreateProjectModal ? (
-              <CreateProjectModal setisModelOpen={setisModelOpen} />
-            ) : (
-              <ProjectModal onClose={onModalClose} project={project} />
-            )}
-          </Model>
-        )}
-      </AnimatePresence>
+    <div className="flex flex-wrap justify-center content-start gap-2 bg-[#191b34] ml-12 h-full text-[#d6d8df] ">
+      {project && <ProjectModal onClose={onModalClose} project={project} />}
     </div>
   );
 };

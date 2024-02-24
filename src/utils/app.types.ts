@@ -1,7 +1,7 @@
 export enum Tabs {
   HOME,
-  PROJECTS,
   TEAM,
+  PROJECTS,
 }
 
 export interface Employee {
@@ -37,10 +37,12 @@ export interface Task {
   id: number;
   title: string;
   description: string | null;
+  completed: boolean;
   priority: string;
   employee: Employee;
   projectId?: number | null;
   project?: Project | null;
+  updatedAt: string;
 }
 
 export interface TeamMember {

@@ -11,13 +11,13 @@ const Model: FC<IModel> = ({ children, onClose }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed top-0 z-50 left-0 w-screen h-screen   m-0 overflow-hidden     box-border "
+      className="top-0 left-0 z-50 box-border fixed m-0 w-screen h-screen overflow-hidden "
     >
-      <div className="relative w-full flex  items-center justify-center  h-full">
-        <div className=" bg-black  w-full h-full absolute top-0 left-0   z-0   opacity-5 " />
-        <div className="relative z-10 bg-white w-1/2 h-1/2   rounded-sm ">
+      <div className="relative flex items-center justify-center w-full h-full">
+        <div className="top-0 left-0 z-0 absolute bg-[#292f4c] opacity-[0.5] w-full h-full " />
+        <div className="relative z-10 bg-[#191b34] shadow-lg rounded-[8px] w-[33%] h-[64%] ">
           <div
-            className="  text-gray-500  absolute  top-1 right-3 cursor-pointer"
+            className="top-1 right-3 absolute text-gray-500 cursor-pointer "
             onClick={onClose}
           >
             X

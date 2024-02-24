@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import Task from "./Task";
 import Model from "./Model";
 import CreateTask from "./CreateTask";
+import TaskTable from "./TaskTable";
+import HomeHideCheckBox from "./HomeHideCheckBox";
+import Tooltip from "./Tooltip";
 
 const Home = () => {
   const { userData, setUserData, userId } = useAppStore();
@@ -25,38 +28,30 @@ const Home = () => {
   };
 
   return (
-    <div className=" bg-white h-full  overflow-scroll  p-10">
-      <div className="max-w-4xl   mx-auto ">
-        <div className=" flex mb-6 pb-5  border-b-2 border-gray-100  items-center justify-between">
-          <div className="flex  text-black    items-start flex-col">
-            <h1 className="text-2xl  font-medium">Home</h1>
-            <span className="text-gray-500  font-normal text-lg">
-              Tuesday, January 16
-            </span>
-          </div>
-
-          <div
-            onClick={onAddProjectClick}
-            className="p-1   w-8 h-8   font-extrabold items-center flex  justify-center    cursor-pointer  text-white bg-[#0028a1] rounded-full    text-[0.7rem]"
-          >
-            +
-          </div>
-        </div>
-        <div>
-          <h1 className="text-black mb-3   text-lg">My Tasks</h1>
-          <div>
-            {userData?.tasks.map((task, i) => (
-              <Task key={i} task={task} />
-            ))}
-          </div>
-
-          {isModalOpen && (
-            <Model onClose={onCloseModal}>
-              <CreateTask userId={userData?.id} onSubmit={onCloseModal} />
-            </Model>
-          )}
-        </div>
+    <div className="h-full text-[#d6d8df] overflow-scroll ">
+      <div className="border-[#292f4c] p-8 border-b-[2px] ">
+        <h1 className="inline-block m-0 mr-3 p-0 text-3xl ">
+          My Current Tasks
+        </h1>
+        <Tooltip>Shows your tasks</Tooltip>
       </div>
+
+      <div className="flex items-center gap-3 p-6 font-thin">
+        <span
+          onClick={onAddProjectClick}
+          className="bg-blue-500 p-2 rounded-md text-sm cursor-pointer "
+        >
+          New Task
+        </span>
+      </div>
+
+      <TaskTable userData={userData} />
+
+      {isModalOpen && (
+        <Model onClose={onCloseModal}>
+          <CreateTask userId={userData?.id} onSubmit={onCloseModal} />
+        </Model>
+      )}
     </div>
   );
 };

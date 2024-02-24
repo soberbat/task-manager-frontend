@@ -10,9 +10,10 @@ import useAppStore from "@/store/AppStore";
 
 const MainApp = () => {
   return (
-    <div className="h-screen overflow-hidden ">
+    <div className="bg-[#292f4c] h-screen overflow-hidden ">
       <TabBar />
-      <div className="h-full flex ">
+      <div className="flex gap-3 h-full ">
+        <SideBar />
         <MainContent />
       </div>
     </div>

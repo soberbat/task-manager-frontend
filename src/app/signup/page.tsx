@@ -41,39 +41,50 @@ export default function Home() {
     "https://images.unsplash.com/photo-1705783679154-c47fab616434?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   return (
-    <div className="bg-gray-50 text-black w-screen h-screen flex items-center justify-center">
-      <img className=" h-full w-1/2 " src={imgSrc} alt="" />
+    <div className="  bg-indigo-950  text-white w-screen h-screen flex gap-4 items-center flex-col justify-center">
+      <div className="fixed text-4xl flex items-center justify-center   top-8 ">
+        <img className="w-[15vw]" src="/logo.png" alt="" />
+      </div>
 
-      <div className="flex items-center flex-col justify-center w-1/2 ">
-        <h1 className="text-5xl font-bold text-gray-500">Sign Up</h1>
-        <form className="flex mt-10 w-1/2 flex-col gap-6">
-          {inputFields.map(({ label, stateSetter, type }) => (
-            <div key={label} className=" ">
-              <span className="block  text-gray-500   mb-0">{label}</span>
+      <div className=" w-4/6 h-4/6 bg-white  p-12 box-border  flex  rounded-2xl ">
+        <div className=" flex-1 ">
+          <form className="flex   p-10 flex-col gap-6">
+            <h1 className="text-3xl  text-center  font-medium text-indigo-950">
+              Sign Up
+            </h1>
+            {inputFields.map(({ label, stateSetter, type }) => (
+              <div key={label} className=" ">
+                {/* <span className="block  text-gray-500   mb-0">{label}</span> */}
+                <input
+                  type={type}
+                  onInput={(e) => onInputChange(e, stateSetter)}
+                  className="  h-12 p-2    bg-gray-100 focus:outline-none w-full rounded-full"
+                />
+              </div>
+            ))}
+
+            <div className="flex  items-center gap-2 justify-center">
               <input
-                type={type}
-                onInput={(e) => onInputChange(e, stateSetter)}
-                className=" h-8 p-2 border border-gray-100  focus:outline-none w-full rounded-sm"
+                className=" w-full rounded-full cursor-pointer  text-white  bg-indigo-600 h-12 p-2 text-black    "
+                type="submit"
+                onClick={onSignUp}
+                value={"Create Account"}
               />
             </div>
-          ))}
+            {message}
 
-          <div className="flex items-center gap-2 justify-center">
-            <input
-              className="bg-white rounded-sm h-9  w-1/3  "
-              type="submit"
-              onClick={onSignUp}
-            />
-          </div>
-          {message}
-        </form>
-
-        <span className=" mt-6   text-gray-400 text-xs ">
-          Have an account?
-          <Link href={"/login"}>
-            <span className=" hover:text-gray-500"> Click here </span>
-          </Link>
-        </span>
+            <div className=" p-2 text-center   border-t border-t-gray-100  text-gray-400 text-xs ">
+              Have an account?
+              <span className=" cursor-pointer hover:text-gray-500">
+                {" "}
+                Click here
+              </span>
+            </div>
+          </form>
+        </div>
+        <div className=" flex-1   border-l-gray-100 border-l  flex items-center justify-center pl-8 ">
+          <img src="/background.png" alt="" />
+        </div>
       </div>
     </div>
   );
