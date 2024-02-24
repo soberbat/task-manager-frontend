@@ -6,7 +6,7 @@ const Navigation = () => {
   const { setActiveTab, activeTab } = useAppStore();
   const tabs = ["Home", "Projects", "Team"];
   return (
-    <div className="flex items-center rounded-full border relative  w-[30%]   bg-gray-100">
+    <div className="flex items-center rounded-full  relative  w-[30%]   bg-[#191b34]">
       {tabs.map((tab, i) => {
         const isActive = activeTab === i;
         return (
@@ -17,7 +17,7 @@ const Navigation = () => {
           >
             <div
               className={` relative   z-10 text-${
-                isActive ? "white" : "black"
+                isActive ? "white" : ["#d6d8df"]
               }  `}
             >
               {" "}
@@ -30,7 +30,7 @@ const Navigation = () => {
                 transition={{
                   layout: { duration: 0.3 },
                 }}
-                className="absolute block p-[0.6rem]   z-0 h-full bg-[#0028a1]   top-0 rounded-full   w-full"
+                className="absolute block p-[0.6rem]   z-0 h-full bg-[#4c4e69]   top-0 rounded-full   w-full"
               ></motion.div>
             )}
           </motion.div>

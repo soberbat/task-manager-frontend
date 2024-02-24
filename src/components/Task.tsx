@@ -2,182 +2,92 @@ import useAppStore from "@/store/AppStore";
 import { Task } from "@/utils/app.types";
 import fetchUserData from "@/utils/fetchUserData";
 import removeTask from "@/utils/removeTask";
-import updateTask from "@/utils/updateTask";
-import React, { useState } from "react";
+import updateTask, { TaskData } from "@/utils/updateTask";
+import React, { ChangeEvent, useState } from "react";
+import ColoredCell from "./ColoredCell";
+import getPriorityColor from "@/utils/getPriorityColor";
+import PriorityUpdater from "./PriorityUpdater";
+import OwnerUpdater from "./OwnerUpdater";
+import UserProfile from "./UserProfile";
 
 interface ITask {
   task: Task;
   isInMyTasks?: boolean;
 }
 
-const Task = ({ task, isInMyTasks = true }: ITask) => {
+const Task = ({ task, isInMyTasks }: ITask) => {
   const [isAssigningTask, setIsAssigningTask] = useState(false);
   const { userData, setUserData } = useAppStore();
   const teamMembers = userData?.teams?.[0]?.team?.members;
   const [isEditMode, setisEditMode] = useState(false);
-  const [taskData, setTaskData] = useState({
-    description: task.description,
-    title: task.title,
-    priority: task.priority,
-  });
+  const [taskTitle, setTaskTitle] = useState(task.title);
+  const [taskDescription, setTaskDescription] = useState(task.description);
+  const [taskPriority, setTaskPriority] = useState(task.priority);
 
-  const handleAssignTaskClick = () => {
-    if (!isEditMode) return;
-    setIsAssigningTask(true);
-  };
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setTaskTitle(e.target.value);
 
-  const onRemoveTask = async (taskId: number) => {
-    await removeTask(taskId);
+  const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setTaskDescription(e.target.value);
+
+  const onRemoveTask = async () => {
+    await removeTask(task.id);
     const userData = await fetchUserData();
     setUserData(userData);
   };
-  const onEditClick = async (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isEditMode) {
-      await updateTask(taskData, task.id);
-      const userData = await fetchUserData();
-      setUserData(userData);
-      setisEditMode(false);
-    } else {
-      setisEditMode(true);
-    }
-  };
 
-  const assignTask = async (taskId: number, employeeId: number) => {
-    const data = { userId: employeeId };
-    await updateTask(data, taskId);
+  const updateCurrentTask = async (data: TaskData) => {
+    await updateTask(data, task!.id);
     const userData = await fetchUserData();
     setUserData(userData);
-    setIsAssigningTask(false);
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "high":
-        return "bg-red-500";
-      case "medium":
-        return "bg-yellow-500";
-      case "low":
-      default:
-        return "bg-green-500";
-    }
-  };
-
-  const handleChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-
-    setTaskData((prevTaskData) => ({
-      ...prevTaskData,
-      [name]: value,
-    }));
   };
 
   return (
-    <div
-      key={task.id}
-      className="bg-white p-4 mb-4 border text-gray-500  relative  cursor-pointer rounded-md "
-    >
-      <h3 className="text-xl font-semibold">
-        {isEditMode ? (
+    <div className="flex items-stretch w-full font-thin ">
+      <div className="flex flex-[0.9] items-center border-[0.2px] border-gray-600 ">
+        <div className="relative w-full h-full group">
           <input
-            type="text"
-            id={`title-${task.id}`} // Add a unique identifier for each task
-            name="title"
-            value={taskData.title}
-            onChange={handleChange}
-            className="border-b bg-transparent  px-2 py-1"
+            value={taskTitle}
+            onChange={onTitleChange}
+            onBlur={() => updateCurrentTask({ title: taskTitle })}
+            className="focus:border-gray-500 focus:border-[0.3px] bg-transparent hover:bg-[#404259] hover:border hover:border-dotted rounded-sm w-full h-full indent-2 focus:outline-none"
           />
-        ) : (
-          taskData.title
-        )}
-      </h3>
-
-      <p className="text-gray-600 mb-2">
-        {isEditMode ? (
-          <textarea
-            id={`description-${task.id}`} // Add a unique identifier for each task
-            name="description"
-            value={taskData.description!}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full     border-b bg-transparent "
+          <img
+            src="x-lg.svg"
+            className="top-1/2 right-4 absolute opacity-0 group-hover:opacity-100 ml-2 -translate-y-1/2 cursor-pointer "
+            alt=""
+            onClick={onRemoveTask}
           />
-        ) : (
-          taskData.description
-        )}
-      </p>
-
-      <div className="top-1/2 transform -translate-y-1/2 flex items-center absolute bottom-3 right-3">
-        {isEditMode ? (
-          <div>
-            <select
-              id={`priority-${task.id}`} // Add a unique identifier for each task
-              name="priority"
-              value={taskData.priority}
-              onChange={handleChange}
-              className="mt-1 p-2 border-b  bg-transparent "
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-        ) : (
-          <div
-            className={`w-3 h-3 rounded-full mr-2 ${getPriorityColor(
-              taskData.priority
-            )}`}
-          ></div>
-        )}
-
-        {!isInMyTasks && (
-          <div
-            onClick={handleAssignTaskClick}
-            className="w-10 h-10 items-center justify-center flex cursor-pointer ont-extrabold text-2xl rounded-full bg-gray-100 text-black text-[0.8rem] ml-2"
-          >
-            {task.employee.username[0]}
-          </div>
-        )}
-        <div onClick={onEditClick} className=" text-gray-500 ml-2">
-          {" "}
-          Edit
         </div>
       </div>
-
-      {isAssigningTask && (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded shadow-md w-96">
-            <h2 className="text-2xl font-semibold mb-4">Assign Task</h2>
-            <p>Select a teammate to assign the task:</p>
-
-            <ul className="mt-4">
-              {teamMembers!.map(({ employee: { username, id } }) => (
-                <li
-                  key={id}
-                  className="cursor-pointer py-2 hover:bg-gray-100"
-                  onClick={() => assignTask(task.id, id)}
-                >
-                  {username}
-                </li>
-              ))}
-            </ul>
-
-            <button
-              onClick={() => setIsAssigningTask(false)}
-              className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-gray-300 transition"
-            >
-              Cancel
-            </button>
-          </div>
+      <div className="flex-[0.5] border-[0.2px] border-gray-600 ">
+        <textarea
+          onBlur={() => updateCurrentTask({ description: taskDescription! })}
+          value={taskDescription!}
+          onChange={onTextAreaChange}
+          className="focus:border-gray-500 focus:border-[0.3px] bg-transparent hover:bg-[#404259] p-2 hover:border hover:border-dotted rounded-sm w-full h-8 focus:h-36 min-h-full text-center transition-all duration-150 ease-out focus:outline-none indent-2"
+        />
+      </div>
+      <div className="relative relativejustify-center flex flex-[.2] items-center border-[0.2px] border-gray-600 group">
+        <div className="opacity-0 group-hover:opacity-100 w-full ">
+          <OwnerUpdater updateTask={updateCurrentTask} task={task} />
         </div>
-      )}
 
-      {isEditMode && (
-        <span
-          className="  cursor-pointer absolute top-3 right-3  rounded-full bg-gray-100 w-5 h-5 flex items-center justify-center  text-xs transform   "
-          onClick={() => onRemoveTask(task.id)}
-        >
-          X
-        </span>
-      )}
+        <div className="top-0 left-0 absolute flex justify-center items-center w-full h-full">
+          <UserProfile
+            isSmallSize={true}
+            firstLetter={task.employee.username[0]}
+          />
+        </div>
+      </div>
+      <div className="relative flex-[.2] border-[0.2px] border-gray-600 group">
+        <div className="opacity-0 group-hover:opacity-100 w-full ">
+          <PriorityUpdater updateTask={updateCurrentTask} />
+        </div>
+        <ColoredCell color={getPriorityColor(task.priority)}>
+          {task.priority}
+        </ColoredCell>
+      </div>
     </div>
   );
 };

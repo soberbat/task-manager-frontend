@@ -7,6 +7,12 @@ import fetchUserData from "@/utils/fetchUserData";
 import updateProject from "@/utils/updateProject";
 import Task from "./Task";
 import { Project } from "@/utils/app.types";
+import ButtonWithChevron from "./ButtonWithChevron";
+import ProjectControlPanel from "./ProjectControlPanel";
+import ProjectControlCategory from "./ProjectControlCategory";
+import Info from "./Tooltip";
+import Tooltip from "./Tooltip";
+import SearchBar from "./SearchBar";
 
 interface IProjectModal {
   project: Project | null;
@@ -20,6 +26,13 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
   const [isModalOpen, setisModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({ name, description });
+  const finished = project?.tasks.filter((task) => task.completed);
+  const todos = project?.tasks.filter((task) => !task.completed);
+
+  useEffect(() => {
+    const { name, description } = project!;
+    setEditedData({ name, description });
+  }, [project]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -36,9 +49,14 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
     setIsEditing(false);
   };
 
-  const handleInputChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-    setEditedData((prevData) => ({ ...prevData, [name]: value }));
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setEditedData((prev) => ({ ...prev, name: val }));
+  };
+
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setEditedData((prev) => ({ ...prev, description: val }));
   };
 
   const onAddTask = () => {
@@ -49,89 +67,39 @@ const ProjectModal = ({ project, onClose }: IProjectModal) => {
   };
 
   return (
-    <div>
-      <div
-        className={`bg-white p-12 rounded  overflow-scroll   h-screen w-screen top-0 left-0 fixed ${
-          isEditing ? "-2 -blue-500" : ""
-        }`}
-      >
-        <div
-          onClick={onClose}
-          className="go-back-button mb-2 absolute top-3 left-12 "
-        >
-          &#8592; Go Back
-        </div>
-        <div className="mb-4">
-          {isEditing ? (
-            <input
-              type="text"
-              name="name"
-              value={editedData.name}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full  text-4xl font-semibold  focus:outline-none focus:border-b focus:border-b-gray-200 text-gray-700 "
-            />
-          ) : (
-            <div className="mt-1 p-2 text-4xl font-semibold  text-gray-700 rounded-md">
-              {editedData.name}
-            </div>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block   text-xl font-medium text-gray-600">
-            Details:
-          </label>
-          {isEditing ? (
-            <textarea
-              name="description"
-              value={editedData.description!}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full   focus:outline-none focus:border-b focus:border-b-gray-200 "
-            />
-          ) : (
-            <div className="mt-1 p-2  rounded-md">{editedData.description}</div>
-          )}
-        </div>
-
+    <div className="pr-4 w-full h-full ">
+      <div className="border-[#292f4c] py-6 border-b-[2px] ">
         <div>
-          {project!.tasks.map((task) => (
-            <Task isInMyTasks={false} key={task.id} task={task} />
-          ))}
+          <input
+            value={editedData.name}
+            onChange={onNameChange}
+            onBlur={() =>
+              updateProject(project?.id!, { name: editedData.name! })
+            }
+            className="focus:border-gray-500 focus:border-[0.3px] bg-transparent hover:bg-[#404259] p-1 rounded-sm w-max h-full text-3xl d focus:outline-none"
+          />
+          <Tooltip> Shows project details </Tooltip>
         </div>
 
-        <div className="flex absolute top-3 right-12 justify-end">
-          {isEditing ? (
-            <>
-              <button
-                onClick={handleSaveClick}
-                className="bg-gray-100     px-6 h-8    mr-3  text-black   rounded-lg hover:bg-gray-300 focus:outline-none focus:ring focus:-green-300 transition"
-              >
-                Save
-              </button>
-              <button
-                onClick={handleCancelClick}
-                className="bg-gray-100     px-6 h-8    text-black   rounded-lg hover:bg-gray-300 focus:outline-none focus:ring focus:-gray-300 transition"
-              >
-                Cancel
-              </button>
-            </>
-          ) : (
-            <div>
-              <button
-                onClick={handleEditClick}
-                className="bg-gray-100     px-6 h-8    text-black   rounded-lg hover:bg-gray-300 focus:outline-none focus:ring focus:-blue-300 transition"
-              >
-                Edit
-              </button>
-              <button
-                onClick={onAddTask}
-                className="bg-gray-100  ml-2    px-6 h-8    text-black   rounded-lg hover:bg-gray-300 focus:outline-none focus:ring focus:-blue-300 transition"
-              >
-                + Add Task
-              </button>
-            </div>
-          )}
-        </div>
+        <input
+          value={editedData.description!}
+          onChange={onDescriptionChange}
+          onBlur={() =>
+            updateProject(project?.id!, { name: editedData.description! })
+          }
+          className="focus:border-gray-500 focus:border-[0.3px] bg-transparent hover:bg-[#404259] p-1 rounded-sm w-max h-full text-sm d focus:outline-none"
+        />
       </div>
+
+      <div className="box-border flex items-center gap-2 my-5 w-full h-8 ">
+        <ButtonWithChevron onClick={onAddTask}>New Task</ButtonWithChevron>
+
+        <SearchBar isExpandable={true} />
+      </div>
+
+      <ProjectControlCategory color={"sky"} title={"To Do"} tasks={todos} />
+      <ProjectControlCategory color={"green"} title={"Done"} tasks={finished} />
+
       {isModalOpen && (
         <Model onClose={onCloseModal}>
           <CreateTask onSubmit={onCloseModal} projectId={project!.id} />

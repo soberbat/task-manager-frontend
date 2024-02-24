@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { FC, ReactNode } from "react";
 import { ITabBar } from "./TopBar";
 import { Tabs } from "@/utils/app.types";
@@ -7,11 +7,12 @@ import Team from "./Team";
 import Tasks from "./Tasks";
 import Projects from "./Projects";
 import useAppStore from "@/store/AppStore";
+import UpdateTask from "./UpdateTask";
 
 interface MainContent {}
 
 const MainContent: FC<MainContent> = () => {
-  const { activeTab } = useAppStore();
+  const { activeTab, isUpdateTaskVisible } = useAppStore();
   const componentMap: Record<Tabs, FC> = {
     [Tabs.HOME]: Home,
     [Tabs.TEAM]: Team,
@@ -25,9 +26,10 @@ const MainContent: FC<MainContent> = () => {
       animate={{ opacity: 1 }}
       layout
       key={activeTab}
-      className="w-full h-full overflow-scroll border-black bg-[#f7f8fa]"
+      className="relative bg-[#191b34] ml-auto border-black rounded-tl-xl w-[99%] h-full"
     >
       <ComponentToRender />
+      <AnimatePresence>{isUpdateTaskVisible && <UpdateTask />}</AnimatePresence>
     </motion.div>
   );
 };
