@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const cookie = request.cookies.get("connect.sid");
   const pathName = request.nextUrl.pathname;
 
-  if (pathName.startsWith("/signup") || pathName.startsWith("/login")) {
+  if (pathName.startsWith("/enter") || pathName.startsWith("/login")) {
     if (cookie) {
       const destinationUrl = new URL("/", new URL(request.url).origin);
       const response = NextResponse.redirect(destinationUrl);
@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     }
   } else {
     if (!cookie) {
-      const destinationUrl = new URL("/signup", new URL(request.url).origin);
+      const destinationUrl = new URL("/enter", new URL(request.url).origin);
       const response = NextResponse.redirect(destinationUrl);
       return response;
     }
@@ -21,5 +21,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 }
 
 export const config = {
-  matcher: ["/", "/signup", "/login"],
+  matcher: ["/", "/enter", "/login"],
 };

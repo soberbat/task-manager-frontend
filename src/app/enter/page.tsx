@@ -86,7 +86,9 @@ export default function Home() {
             <div className="p-2 border-t border-t-gray-100 text-center text-gray-400 text-xs ">
               {userHasAccount ? "To Register" : "Have an account?"}
               <span
-                onClick={() => setUserHasAccount(!userHasAccount)}
+                onClick={() => {
+                  setUserHasAccount(!userHasAccount);
+                }}
                 className="hover:text-gray-500 cursor-pointer "
               >
                 {" "}
