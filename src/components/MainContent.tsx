@@ -29,7 +29,9 @@ const MainContent: FC<MainContent> = () => {
       className="relative bg-[#191b34] ml-auto border-black rounded-tl-xl w-[99%] h-full"
     >
       <ComponentToRender />
-      <AnimatePresence>{isUpdateTaskVisible && <UpdateTask />}</AnimatePresence>
+      <AnimatePresence>
+        {isUpdateTaskVisible && activeTab === 2 && <UpdateTask />}
+      </AnimatePresence>
     </motion.div>
   );
 };

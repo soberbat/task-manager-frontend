@@ -2,8 +2,13 @@ import React from "react";
 import withSlotUpdater from "./SlotUpdater";
 import SlotUpdater from "./SlotUpdater";
 import useAppStore from "@/store/AppStore";
+import { TaskData } from "@/utils/updateTask";
 
-const PriorityUpdater = ({ updateTask }) => {
+interface IPriorityUpdater {
+  updateTask: (data: TaskData) => void;
+}
+
+const PriorityUpdater = ({ updateTask }: IPriorityUpdater) => {
   return (
     <SlotUpdater>
       <div className="relative flex flex-col justify-center items-center gap-2 px-6 p-4 w-full h-full text-white">

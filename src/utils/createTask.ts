@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const productionUrl = "https://api.taskermanager.online/tasks";
+const productionUrl = "https://api.taskermanager.site/tasks";
 const devUrl = "http://localhost:3001/tasks";
 
 type TaskData = {

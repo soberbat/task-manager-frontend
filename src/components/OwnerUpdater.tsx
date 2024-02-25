@@ -4,8 +4,7 @@ import SlotUpdater from "./SlotUpdater";
 import SearchBar from "./SearchBar";
 import useAppStore from "@/store/AppStore";
 import UserProfile from "./UserProfile";
-import updateTask, { TaskData } from "@/utils/updateTask";
-import fetchUserData from "@/utils/fetchUserData";
+import { TaskData } from "@/utils/updateTask";
 import { Task } from "@/utils/app.types";
 
 interface IOwnerUpdater {
@@ -26,10 +25,10 @@ const OwnerUpdater = ({ updateTask, task }: IOwnerUpdater) => {
           </h1>
           <div className="inline-flex box-border items-center gap-1 bg-gray-200 p-[2px] rounded-full w-[35%] text-xs ">
             <UserProfile
-              firstLetter={task ? task.employee.username[0] : assignee[0]}
+              firstLetter={task ? task.employee.username[0] : assignee![0]}
               isSmallSize={true}
             />
-            {task.employee.username}
+            {task ? task.employee.username : assignee}
           </div>
         </div>
         <div className="flex justify-stretch items-center border border-blue-600 rounded-md w-full h-8">
@@ -39,8 +38,9 @@ const OwnerUpdater = ({ updateTask, task }: IOwnerUpdater) => {
         <div className="mt-4 text-gray-300 text-sm">
           <h1 className="mb-3 text-left ">Your Teammates</h1>
           <div className="h-12 overflow-scroll ">
-            {teamMembers?.map(({ employee }) => (
+            {teamMembers?.map(({ employee }, i) => (
               <div
+                key={i}
                 onClick={() => updateTask({ userId: employee.id })}
                 className="box-border flex items-center gap-3 hover:bg-[#404259] p-2 rounded-md cursor-pointer "
               >

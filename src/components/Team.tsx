@@ -68,7 +68,10 @@ const Team = () => {
       <div className="px-6 p-4 w-full h-1/3 ">
         <div className="flex justify-center items-center gap-2 bg-[#292f4c] shadow-xl rounded-md w-[80%] h-full">
           {teamMembers?.map(({ employee: { username, id } }) => (
-            <div className="inline-flex relative box-border items-center gap-1 bg-gray-200 p-[5px] rounded-full w-max text-black text-xs group">
+            <div
+              key={id}
+              className="inline-flex relative box-border items-center gap-1 bg-gray-200 p-[5px] rounded-full w-max text-black text-xs group"
+            >
               <UserProfile firstLetter={username[0]} isSmallSize={true} />
               {username === userData?.username ? "You" : username}
 

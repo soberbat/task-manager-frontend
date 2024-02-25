@@ -35,6 +35,7 @@ const SideBar = () => {
       <div className="border-[#292f4c] px-4 py-3 border-b-[1px] ">
         {tabs.map((tab, i) => (
           <div
+            key={i}
             onClick={() => setActiveTab(i)}
             className="hover:bg-[#292f4c] p-[0.8vh] rounded-[5px] w-[90%] font-thin text-[#d6d8df] text-sm cursor-pointer "
           >
@@ -65,6 +66,7 @@ const SideBar = () => {
         <div className="mt-3">
           {userData?.projects?.map(({ name, id }) => (
             <div
+              key={id}
               onClick={() => {
                 setActiveTab(2);
                 setProjectId(id);

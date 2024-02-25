@@ -26,7 +26,10 @@ const ProjectControlPanel = ({ tasks }: IProjectControlPanel) => {
             Task
           </ProjectControlPanelCell>
           {tasks.map((task) => (
-            <ProjectControlPanelCell onClick={() => onCellUpdateClick(task)}>
+            <ProjectControlPanelCell
+              key={task.id}
+              onClick={() => onCellUpdateClick(task)}
+            >
               <div className="relative flex justify-center items-center w-full h-full cursor-pointer group">
                 {task.title}
                 <img
@@ -43,8 +46,8 @@ const ProjectControlPanel = ({ tasks }: IProjectControlPanel) => {
           <ProjectControlPanelCell isCellTitle={true}>
             Owner
           </ProjectControlPanelCell>
-          {tasks.map(({ employee }) => (
-            <ProjectControlPanelCell>
+          {tasks.map(({ employee }, i) => (
+            <ProjectControlPanelCell key={i}>
               <UserProfile
                 isSmallSize={true}
                 firstLetter={employee.username[0]}
@@ -57,8 +60,8 @@ const ProjectControlPanel = ({ tasks }: IProjectControlPanel) => {
           <ProjectControlPanelCell isCellTitle={true}>
             Status
           </ProjectControlPanelCell>
-          {tasks.map(({ completed }) => (
-            <ProjectControlPanelCell>
+          {tasks.map(({ completed }, i) => (
+            <ProjectControlPanelCell key={i}>
               <ColoredCell color={completed ? "bg-green-500" : "bg-purple-400"}>
                 {completed ? "Done" : "To Do"}{" "}
               </ColoredCell>
@@ -70,8 +73,8 @@ const ProjectControlPanel = ({ tasks }: IProjectControlPanel) => {
           <ProjectControlPanelCell isCellTitle={true}>
             Last Updated
           </ProjectControlPanelCell>
-          {tasks.map(({ updatedAt }) => (
-            <ProjectControlPanelCell>
+          {tasks.map(({ updatedAt }, i) => (
+            <ProjectControlPanelCell key={i}>
               {converTime(updatedAt)}
             </ProjectControlPanelCell>
           ))}
@@ -81,8 +84,8 @@ const ProjectControlPanel = ({ tasks }: IProjectControlPanel) => {
           <ProjectControlPanelCell isCellTitle={true}>
             Priority
           </ProjectControlPanelCell>
-          {tasks.map(({ priority }) => (
-            <ProjectControlPanelCell>
+          {tasks.map(({ priority }, i) => (
+            <ProjectControlPanelCell key={i}>
               <ColoredCell color={getPriorityColor(priority)}>
                 {priority}
               </ColoredCell>

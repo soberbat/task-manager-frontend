@@ -2,8 +2,8 @@ import React, { useState, Dispatch, SetStateAction } from "react";
 
 interface ISearchBar {
   isExpandable: boolean;
-  onChange: Dispatch<SetStateAction<string>>;
-  value: string;
+  onChange?: Dispatch<SetStateAction<string>>;
+  value?: string;
 }
 const SearchBar = ({ isExpandable, onChange, value }: ISearchBar) => {
   const [isExpanded, setisExpanded] = useState(false);
@@ -26,7 +26,6 @@ const SearchBar = ({ isExpandable, onChange, value }: ISearchBar) => {
         onClick={(e) => {
           setisExpanded(true), e.stopPropagation();
         }}
-        onChange={(e) => onChange(e.target.value)}
         className="box-border bg-transparent py-2 pr-4 pl-10 font-thin text-sm focus:outline-none focus:border border-transparent w-full h-full text-[#d6d8df]"
       />
       <span

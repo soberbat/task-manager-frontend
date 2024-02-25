@@ -20,8 +20,8 @@ const TabBar: FC<ITabBar> = () => {
   };
 
   return (
-    <div className="z-0 flex items-center justify-between bg-[#292f4c] px-2 h-[5.5vh] ">
-      <img src="/logo.png" className="w-20" alt="" />
+    <div className="z-0 flex justify-between items-center bg-[#292f4c] px-2 h-[5.5vh] ">
+      <img src="/logo2.png" className="w-20" alt="" />
       <div className="flex items-center gap-5 mr-3">
         <UserProfile firstLetter={userData?.username[0]} />
         <img

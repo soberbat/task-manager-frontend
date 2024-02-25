@@ -27,7 +27,7 @@ const Projects = () => {
   };
 
   const getProjectInfo = async () => {
-    const project = await findProject(projectId);
+    const project = await findProject(projectId!);
     setProject(project);
   };
 

@@ -19,6 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/svg" href="/app.svg" />
+      </head>
       <body className={rubik.className}>{children}</body>
     </html>
   );

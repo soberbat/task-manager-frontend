@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-const Tooltip = ({ children }) => {
+interface ITooltip {
+  children: React.ReactNode;
+}
+const Tooltip = ({ children }: ITooltip) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const opacity = showTooltip ? 100 : 0;
   return (
