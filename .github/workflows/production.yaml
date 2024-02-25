@@ -4,8 +4,10 @@ on:
   push:
     branches: [main]
 
-  production:
+jobs:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -33,5 +35,5 @@ on:
         run: |
           gcloud run deploy task-manager-frontend \
             --region europe-west1 \
-            --image=europe-west1-docker.pkg.dev/dev-sphere-410611/demo/frontend \
+            --image=europe-west1-docker.pkg.dev/$GCLOUD_PROJECT_ID/$REPO/frontend:latest \
             --allow-unauthenticated
