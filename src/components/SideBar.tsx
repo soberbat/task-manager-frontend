@@ -39,7 +39,11 @@ const SideBar = () => {
             onClick={() => setActiveTab(i)}
             className="hover:bg-[#292f4c] p-[0.8vh] rounded-[5px] w-[90%] font-thin text-[#d6d8df] text-sm cursor-pointer "
           >
-            <img className="inline-block mr-1" src={`/${tab}.svg`} alt="" />{" "}
+            <img
+              className="inline-block mr-1"
+              src={`/${tab.toLowerCase()}.svg`}
+              alt=""
+            />{" "}
             {tab}
           </div>
         ))}

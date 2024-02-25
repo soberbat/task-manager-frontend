@@ -16,7 +16,7 @@ const TabBar: FC<ITabBar> = () => {
   const router = useRouter();
   const handleLogOut = async () => {
     await Logout();
-    router.push("/login");
+    router.push("/enter");
   };
 
   return (
