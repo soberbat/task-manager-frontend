@@ -6,7 +6,6 @@ on:
 
   production:
     runs-on: ubuntu-latest
-    environment: Production
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
