@@ -8,7 +8,7 @@ const devUrl = "http://localhost:3001/employee/get-all-only-mails";
 
 export default async () => {
   try {
-    const response = await axios.get(devUrl, axiosConfig);
+    const response = await axios.get(productionUrl, axiosConfig);
     return response.data;
   } catch (error) {
     throw error;
