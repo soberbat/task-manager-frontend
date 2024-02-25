@@ -14,7 +14,6 @@ type TaskData = {
 export default async (taskData: TaskData) => {
   try {
     const response = await axios.post(productionUrl, taskData);
-    console.log("Task created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);
   }

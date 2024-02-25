@@ -7,7 +7,6 @@ export default async (userId: number) => {
 
   try {
     const response = await axios.patch(productionUrl, {}, axiosConfig);
-    console.log("Task created successfully:", response.data);
   } catch (error) {
     console.error("Error creating task:", error);
   }

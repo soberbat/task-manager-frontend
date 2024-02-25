@@ -10,7 +10,6 @@ export default async (taskData: TaskData, taskId: number) => {
   const devUrl = `http://localhost:3001/tasks/${taskId}`;
   try {
     const response = await axios.patch(productionUrl, taskData, axiosConfig);
-    console.log("Project deleted successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error creating task:", error);
