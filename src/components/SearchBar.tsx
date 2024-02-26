@@ -2,11 +2,15 @@ import React, { useState, Dispatch, SetStateAction } from "react";
 
 interface ISearchBar {
   isExpandable: boolean;
-  onChange?: Dispatch<SetStateAction<string>>;
+  onChange?: (val: string) => void;
   value?: string;
 }
 const SearchBar = ({ isExpandable, onChange, value }: ISearchBar) => {
   const [isExpanded, setisExpanded] = useState(false);
+  const mockHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    onChange && onChange(val);
+  };
   const flex = !isExpandable
     ? "flex-1"
     : isExpanded
@@ -26,6 +30,7 @@ const SearchBar = ({ isExpandable, onChange, value }: ISearchBar) => {
         onClick={(e) => {
           setisExpanded(true), e.stopPropagation();
         }}
+        onChange={mockHandler}
         className="box-border bg-transparent py-2 pr-4 pl-10 font-thin text-sm focus:outline-none focus:border border-transparent w-full h-full text-[#d6d8df]"
       />
       <span
