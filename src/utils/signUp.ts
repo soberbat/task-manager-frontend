@@ -9,7 +9,7 @@ const config = {
   },
 };
 
-const productionUrl = "https://api.taskermanager.site/auth/signup";
+const productionUrl = "https://backend.taskermanager.site/auth/signup";
 const devUrl = "http://localhost:3001/auth/signup";
 
 export default async function SignUp(

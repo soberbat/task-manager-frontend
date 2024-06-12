@@ -1,7 +1,7 @@
 import axios from "axios";
 import axiosConfig from "./axios.config";
 
-const prodEndpoint = "https://api.taskermanager.site/auth/logout";
+const prodEndpoint = "https://backend.taskermanager.site/auth/logout";
 const devEndpoint = "http://localhost:3001/auth/logout";
 
 export default async function Logout() {

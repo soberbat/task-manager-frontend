@@ -7,7 +7,7 @@ type data = {
 };
 
 const devUrl = "http://localhost:3001/project";
-const prodUrl = "https://api.taskermanager.site/project";
+const prodUrl = "https://backend.taskermanager.site/project";
 export default async (projectData: data) => {
   try {
     const response = await axios.post(prodUrl, projectData, axiosConfig);

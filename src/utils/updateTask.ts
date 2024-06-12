@@ -6,7 +6,7 @@ export type TaskData = {
 };
 
 export default async (taskData: TaskData, taskId: number) => {
-  const productionUrl = `https://api.taskermanager.site/tasks/${taskId}`;
+  const productionUrl = `https://backend.taskermanager.site/tasks/${taskId}`;
   const devUrl = `http://localhost:3001/tasks/${taskId}`;
   try {
     const response = await axios.patch(productionUrl, taskData, axiosConfig);
