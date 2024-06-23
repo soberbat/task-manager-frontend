@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
+import MobilePage from "@/components/MobilePage";
 
 const rubik = Rubik({
   weight: ["300", "400", "500", "700", "900"],
@@ -23,6 +24,7 @@ export default function RootLayout({
         <link rel="icon" type="image/svg" href="/app.svg" />
       </head>
       <body className={rubik.className}>{children}</body>
+      <MobilePage />
     </html>
   );
 }
